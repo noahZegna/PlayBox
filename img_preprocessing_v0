@@ -6,14 +6,37 @@ Created on Mon Aug 23 14:24:15 2021
 @author: noahzegnarothenberger
 """
 
-from PIL import Image
+from PIL import Image, ImageFilter
 import numpy as np
 
-img = Image.open('/Users/noahzegnarothenberger/Desktop/test_logo.png')
+img = Image.open('/Users/noahzegnarothenberger/Desktop/test.jpeg') # test image: 2419 x 3047
+
+converter = ImageEnhance.Color(img)
+img = converter.enhance(2) # color enhancement
+
+img.show()
+
+img = img.filter(ImageFilter.BoxBlur(20))
+img = img.filter(ImageFilter.BoxBlur(10))
+img.show()
+
+img_ar = np.asarray(img, dtype = 'int32')
+img_ds_ar = img_ar[::1, ::2] # downsampling 
+
+dc = img_ar[:, range(0, img_ar.shape[1],2)]
+drdc = dc[range(0, img_ar.shape[0],2),:]
 
 
-img.load()
-img_array = np.asarray(img, dtype = 'int32')
+#img_ds = Image.fromarray(img_ds_ar, "RGB")
+#img_ar = Image.fromarray(img_ar, "RGB")
+#img_ds.show()
+#img_ar.show()
+
+drdc_ar = Image.fromarray(drdc, "RGB")
+drdc_ar.show()
+
+
+
 
 
 #TODO saturate colors and reduce quantization steps 
