@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Aug 23 14:24:15 2021
+
+@author: noahzegnarothenberger
+"""
+
+from PIL import Image
+import numpy as np
+
+img = Image.open('/Users/noahzegnarothenberger/Desktop/test_logo.png')
+
+
+img.load()
+img_array = np.asarray(img, dtype = 'int32')
+
+
+#TODO saturate colors and reduce quantization steps 
+#TODO downsample image to desired grid size
